@@ -1,0 +1,63 @@
+ {
+            nome: "D DECORATIVOS",
+            pasta: "D_DECORATIVOS",
+            subcategorias: [
+                {
+                    nome: "DD",
+                    pasta: "DD",
+                    imagens: ["DD.jpg", "DD1.jpg", "DD2.jpg", "DD3.jpg", "DD4.jpg", "DD5.jpg", "DD6.jpg", "DD7.jpg", "DD8.jpg", "DD9.jpg", "DD10.jpg", "DD11.jpg"]
+                },
+                {
+                    nome: "DE",
+                    pasta: "DE",
+                    imagens: ["DE.jpg", "DE1.jpg", "DE2.jpg", "DE3.jpg", "DE4.jpg", "DE5.jpg", "DE6.jpg", "DE7.jpg", "DE8.jpg", "DE9.jpg", "DE10.jpg", "DE11.jpg"]
+                },
+                {
+                    nome: "DR",
+                    pasta: "DR",
+                    imagens: ["DR-32.jpg", "DR-32_1.jpg", "DR-32_2.jpg", "DR-32_3.jpg", "DR-32_4.jpg", "DR-45.jpg", "DR-45_1.jpg", "DR-45_2.jpg", "DR-45_3.jpg", "DR-45_4.jpg", "DR-70.jpg", "DR-70_1.jpg", "DR-70_2.jpg", "DR-70_3.jpg", "DR-70_4.jpg"]
+                },
+                {
+                    nome: "DL",
+                    pasta: "DL",
+                    imagens: ["DL.jpg", "DL1.jpg", "DL2.jpg", "DL3.jpg", "DL4.jpg", "DL5.jpg", "DL6.jpg", "DL7.jpg", "DL8.jpg", "DL9.jpg", "DL10.jpg", "DL11.jpg"]
+                },
+                {
+                    nome: "DT",
+                    pasta: "DT",
+                    imagens: ["DT-89.jpg", "DT-89_1.jpg", "DT-89_2.jpg", "DT-89_3.jpg", "DT-89_4.jpg", "DT127.jpg", "DT127_1.jpg", "DT127_2.jpg", "DT127_3.jpg", "DT127_4.jpg", "DT250.jpg", "DT250_1.jpg", "DT250_2.jpg", "DT250_3.jpg", "DT250_4.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "E ESTORES EXTERIORES",
+            pasta: "E_ESTORES_EXTERIORES",
+            subcategorias: [
+                {
+                    nome: "EL",
+                    pasta: "EL",
+                    imagens: ["EL.jpg", "EL1.jpg", "EL2.jpg", "EL3.jpg", "EL4.jpg", "EL5.jpg", "EL6.jpg", "EL7.jpg", "EL8.jpg", "EL9.jpg", "EL10.jpg", "EL11.jpg"]
+                },
+                {
+                    nome: "ELT",
+                    pasta: "ELT",
+                    imagens: ["ELT.jpg", "ELT1.jpg", "ELT2.jpg", "ELT3.jpg", "ELT4.jpg", "ELT5.jpg", "ELT6.jpg", "ELT7.jpg", "ELT8.jpg", "ELT9.jpg", "ELT10.jpg", "ELT11.jpg"]
+                },
+                {
+                    nome: "DR",
+                    pasta: "DR",
+                    imagens: ["DR-32.jpg", "DR-32_1.jpg", "DR-32_2.jpg", "DR-32_3.jpg", "DR-32_4.jpg", "DR-45.jpg", "DR-45_1.jpg", "DR-45_2.jpg", "DR-45_3.jpg", "DR-45_4.jpg", "DR-70.jpg", "DR-70_1.jpg", "DR-70_2.jpg", "DR-70_3.jpg", "DR-70_4.jpg"]
+                },
+                {
+                    nome: "DL",
+                    pasta: "DL",
+                    imagens: ["DL.jpg", "DL1.jpg", "DL2.jpg", "DL3.jpg", "DL4.jpg", "DL5.jpg", "DL6.jpg", "DL7.jpg", "DL8.jpg", "DL9.jpg", "DL10.jpg", "DL11.jpg"]
+                },
+                {
+                    nome: "DT",
+                    pasta: "DT",
+                    imagens: ["DT-89.jpg", "DT-89_1.jpg", "DT-89_2.jpg", "DT-89_3.jpg", "DT-89_4.jpg", "DT127.jpg", "DT127_1.jpg", "DT127_2.jpg", "DT127_3.jpg", "DT127_4.jpg", "DT250.jpg", "DT250_1.jpg", "DT250_2.jpg", "DT250_3.jpg", "DT250_4.jpg"]
+                },
+            ]
+        },
+    ];

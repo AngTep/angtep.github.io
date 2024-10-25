@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<!-- Link para o Manifesto -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Cor da barra de endereço no mobile -->
+<meta name="theme-color" content="#2A60A5">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Produtos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<!-- Incluindo o Swiper CSS localmente -->
+<link rel="stylesheet" href="./swiper/swiper-bundle.min.css">
+
+    <!-- Link para o Manifesto -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Cor da barra de endereço no mobile -->
+    <meta name="theme-color" content="#2A60A5">
+
+    <style>
+        /* Importando a Fonte Roboto */
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('fonts/Roboto-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        html, body {
+            position: relative;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Ajuste a cor de fundo conforme necessário */
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+h2 {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #2A60A5;
+    position: absolute;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 5px 10px;
+}
+
+h2 {
+    bottom: 60px;
+    left: 20px;
+    top: auto; /* Adicionado */
+    font-weight: bold;
+}
+
+
+        #logo {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            width: 250px;
+            z-index: 1000;
+        }
+
+        #nome-categoria {
+            position: fixed;
+            top: 60px;
+            left: 10px;
+            font-family: 'Roboto', sans-serif;
+            color: #2A60A5;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 10px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        /* Estilos para o contêiner do produto e descrição */
+        .produto-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+    .then(function(registration) {
+      console.log('Service Worker registrado com sucesso:', registration);
+    })
+    .catch(function(error) {
+      console.log('Falha ao registrar o Service Worker:', error);
+    });
+  }
+</script>
+
+
+
+<body>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+        .then(function(registration) {
+            console.log('Service Worker registrado com sucesso:', registration);
+        })
+        .catch(function(error) {
+            console.log('Falha ao registrar o Service Worker:', error);
+        });
+    }
+
+</script>
+
+<!-- Logo -->
+<img src="logo.png" alt="Logo" id="logo">
+
+<!-- Swiper Vertical (Categorias) -->
+<div class="swiper-container swiper-container-v">
+    <div class="swiper-wrapper" id="categorias-container">
+        <!-- Os slides das categorias serão gerados dinamicamente -->
+    </div>
+</div>
+
+<!-- Incluindo o Swiper JS localmente -->
+<script src="swiper/swiper-bundle.min.js"></script>
+
+<script>
+    // Função para embaralhar arrays
+    function embaralharArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+
+    // Defina os dados diretamente no JavaScript
+    const data = [
+ {
+            nome: "D DECORATIVOS",
+            pasta: "D_DECORATIVOS",
+            subcategorias: [
+                {
+                    nome: "DD",
+                    pasta: "DD",
+                    imagens: ["DD.jpg", "DD1.jpg", "DD2.jpg", "DD3.jpg", "DD4.jpg", "DD5.jpg", "DD6.jpg", "DD7.jpg", "DD8.jpg", "DD9.jpg", "DD10.jpg", "DD11.jpg"]
+                },
+                {
+                    nome: "DE",
+                    pasta: "DE",
+                    imagens: ["DE.jpg", "DE1.jpg", "DE2.jpg", "DE3.jpg", "DE4.jpg", "DE5.jpg", "DE6.jpg", "DE7.jpg", "DE8.jpg", "DE9.jpg", "DE10.jpg", "DE11.jpg"]
+                },
+                {
+                    nome: "DR",
+                    pasta: "DR",
+                    imagens: ["DR.jpg", "DR1.jpg", "DR2.jpg", "DR3.jpg", "DR4.jpg", "DR5.jpg", "DR6.jpg", "DR7.jpg", "DR8.jpg", "DR9.jpg", "DR10.jpg", "DR11.jpg", "DR12.jpg", "DR13.jpg", "DR14.jpg"]
+                },
+                {
+                    nome: "DL",
+                    pasta: "DL",
+                    imagens: ["DL.jpg", "DL1.jpg", "DL2.jpg", "DL3.jpg", "DL4.jpg", "DL5.jpg", "DL6.jpg", "DL7.jpg", "DL8.jpg", "DL9.jpg", "DL10.jpg", "DL11.jpg"]
+                },
+                {
+                    nome: "DT",
+                    pasta: "DT",
+                    imagens: ["DT.jpg", "DT1.jpg", "DT2.jpg", "DT3.jpg", "DT4.jpg", "DT5.jpg", "DT6.jpg", "DT7.jpg", "DT8.jpg", "DT9.jpg", "DT10.jpg", "DT11.jpg", "DT12.jpg", "DT13.jpg", "DT14.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "E ESTORES EXTERIORES",
+            pasta: "E_ESTORES_EXTERIORES",
+            subcategorias: [
+                {
+                    nome: "EL",
+                    pasta: "EL",
+                    imagens: ["EL.jpg", "EL1.jpg", "EL2.jpg", "EL3.jpg", "EL4.jpg", "EL5.jpg", "EL6.jpg", "EL7.jpg", "EL8.jpg", "EL9.jpg", "EL10.jpg", "EL11.jpg"]
+                },
+                {
+                    nome: "ELT",
+                    pasta: "ELT",
+                    imagens: ["ELT.jpg", "ELT1.jpg", "ELT2.jpg", "ELT3.jpg", "ELT4.jpg", "ELT5.jpg", "ELT6.jpg", "ELT7.jpg", "ELT8.jpg", "ELT9.jpg"]
+                },
+                {
+                    nome: "EM",
+                    pasta: "EM",
+                    imagens: ["EM.jpg", "EM1.jpg", "EM2.jpg", "EM3.jpg", "EM4.jpg", "EM5.jpg", "EM6.jpg", "EM7.jpg", "EM8.jpg", "EM9.jpg", "EM10.jpg", "EM11.jpg"]
+                },
+                {
+                    nome: "EML",
+                    pasta: "EML",
+                    imagens: ["EML.jpg", "EML1.jpg", "EML2.jpg", "EML3.jpg", "EML4.jpg", "EML5.jpg", "EML6.jpg", "EML7.jpg", "EML8.jpg", "EML9.jpg", "EML10.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "T TOLDOS",
+            pasta: "T_TOLDOS",
+            subcategorias: [
+                {
+                    nome: "TB",
+                    pasta: "TB",
+                    imagens: ["TB.jpg", "TB1.jpg", "TB2.jpg", "TB3.jpg", "TB4.jpg", "TB5.jpg", "TB6.jpg", "TB7.jpg", "TB8.jpg", "TB9.jpg", "TB10.jpg", "TB11.jpg"]
+                },
+                {
+                    nome: "TBC",
+                    pasta: "TBC",
+                    imagens: ["TBC.jpg", "TBC1.jpg", "TBC2.jpg", "TBC3.jpg", "DE4.jpg", "TBC5.jpg", "TBC6.jpg", "TBC7.jpg", "TBC8.jpg", "TBC9.jpg"]
+                },
+                {
+                    nome: "TBI",
+                    pasta: "TBI",
+                    imagens: ["TBI.jpg", "TBI1.jpg", "TBI2.jpg", "TBI3.jpg", "TBI4.jpg", "TBI5.jpg", "TBI6.jpg", "TBI7.jpg", "TBI8.jpg", "TBI9.jpg", "TBI10.jpg", "TBI11.jpg"]
+                },
+                {
+                    nome: "TD",
+                    pasta: "TD",
+                    imagens: ["TD.jpg", "TD1.jpg", "TD2.jpg", "TD3.jpg", "TD4.jpg", "TD5.jpg", "TD6.jpg", "TD7.jpg", "TD8.jpg", "TD9.jpg", "TD10.jpg", "TD11.jpg"]
+                },
+                {
+                    nome: "TF",
+                    pasta: "TF",
+                    imagens: ["TF.jpg", "TF1.jpg", "TF2.jpg", "TF3.jpg", "TF4.jpg", "TF5.jpg", "TF6.jpg", "TF7.jpg", "TF8.jpg", "TF9.jpg", "TF10.jpg", "TF11.jpg"]
+                },
+                {
+                    nome: "TH",
+                    pasta: "TH",
+                    imagens: ["TH.jpg", "TH1.jpg", "TH2.jpg", "TH3.jpg", "TH4.jpg", "TH5.jpg", "TH6.jpg", "TH7.jpg", "TH8.jpg", "TH9.jpg", "TH10.jpg", "TH11.jpg"]
+                },
+                {
+                    nome: "TV",
+                    pasta: "TV",
+                    imagens: ["TV.jpg", "TV1.jpg", "TV2.jpg", "TV3.jpg", "TV4.jpg", "TV5.jpg"]
+                },
+                {
+                    nome: "TVM",
+                    pasta: "TVM",
+                    imagens: ["TVM.jpg", "TVM1.jpg", "TVM2.jpg", "TVM3.jpg", "TVM4.jpg", "TVM5.jpg", "TVM6.jpg", "TVM7.jpg", "TVM8.jpg", "TVM9.jpg", "TVM10.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "C COBERTURAS",
+            pasta: "C_COBERTURAS",
+            subcategorias: [
+                {
+                    nome: "CC",
+                    pasta: "CC",
+                    imagens: ["CC.jpg", "CC1.jpg", "CC2.jpg", "CC3.jpg", "CC4.jpg", "CC5.jpg", "CC6.jpg", "CC7.jpg", "CC8.jpg", "CC9.jpg", "CC10.jpg", "CC11.jpg"]
+                },
+                {
+                    nome: "CD",
+                    pasta: "CD",
+                    imagens: ["CD.jpg", "CD1.jpg", "CD2.jpg", "CD3.jpg", "CD4.jpg", "CD5.jpg", "CD6.jpg", "CD7.jpg", "CD8.jpg", "CD9.jpg", "CD10.jpg", "CD11.jpg"]
+                },
+                {
+                    nome: "CPA",
+                    pasta: "CPA",
+                    imagens: ["CPA.jpg", "CPA1.jpg", "CPA2.jpg", "CPA3.jpg", "CPA4.jpg", "CPA5.jpg"]
+                },
+                {
+                    nome: "CPC",
+                    pasta: "CPC",
+                    imagens: ["CPC.jpg", "CPC1.jpg", "CPC2.jpg", "CPC3.jpg", "CPC4.jpg", "CPC5.jpg", "CPC6.jpg", "CPC7.jpg", "CPC8.jpg", "CPC9.jpg", "CPC10.jpg", "CPC11.jpg"]
+                },
+                {
+                    nome: "CPD",
+                    pasta: "CPD",
+                    imagens: ["CPD.jpg", "CPD1.jpg", "CPD2.jpg", "CPD3.jpg", "CPD4.jpg", "CPD5.jpg", "CPD6.jpg", "CPD7.jpg", "CPD8.jpg", "CPD9.jpg", "CPD10.jpg", "CPD11.jpg"]
+                },
+                {
+                    nome: "CPT",
+                    pasta: "CPT",
+                    imagens: ["CPT.jpg", "CPT1.jpg", "CPT2.jpg", "CPT3.jpg", "CPT4.jpg", "CPT5.jpg", "CPT6.jpg", "CPT7.jpg", "CPT8.jpg", "CPT9.jpg", "CPT10.jpg", "CPT11.jpg"]
+                },
+                {
+                    nome: "CT",
+                    pasta: "CT",
+                    imagens: ["CT.jpg", "CT1.jpg", "CT2.jpg", "CT3.jpg", "CT4.jpg", "CT5.jpg", "CT6.jpg", "CT7.jpg", "CT8.jpg", "CT9.jpg", "CT10.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "M MOSQUITEIROS",
+            pasta: "M_MOSQUITEIROS",
+            subcategorias: [
+                {
+                    nome: "MC",
+                    pasta: "MC",
+                    imagens: ["MC.jpg", "MC1.jpg", "MC2.jpg", "MC3.jpg", "MC4.jpg", "MC5.jpg", "MC6.jpg", "MC7.jpg", "MC8.jpg", "MC9.jpg", "MC10.jpg", "MC11.jpg"]
+                },
+                {
+                    nome: "MH",
+                    pasta: "MH",
+                    imagens: ["MH.jpg", "MH1.jpg", "MH2.jpg", "MH3.jpg", "MH4.jpg", "MH5.jpg", "MH6.jpg", "MH7.jpg", "MH8.jpg", "MH9.jpg", "MH10.jpg", "MH11.jpg"]
+                },
+                {
+                    nome: "MM",
+                    pasta: "MM",
+                    imagens: ["MM.jpg", "MM1.jpg", "MM2.jpg", "MM3.jpg", "MM4.jpg", "MM5.jpg", "MM6.jpg", "MM7.jpg", "MM8.jpg", "MM9.jpg", "MM10.jpg", "MM11.jpg"]
+                },
+                {
+                    nome: "MP",
+                    pasta: "MP",
+                    imagens: ["MP.jpg", "MP1.jpg", "MP2.jpg", "MP3.jpg", "MP4.jpg", "MP5.jpg", "MP6.jpg", "MP7.jpg", "MP8.jpg", "MP9.jpg", "MP10.jpg", "MP11.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "P PERGULAS",
+            pasta: "P_PERGULAS",
+            subcategorias: [
+                {
+                    nome: "PB",
+                    pasta: "PB",
+                    imagens: ["PB.jpg", "PB1.jpg", "PB2.jpg", "PB3.jpg", "PB4.jpg", "PB5.jpg", "PB6.jpg", "PB7.jpg", "PB8.jpg", "PB9.jpg", "PB10.jpg", "PB11.jpg"]
+                },
+                {
+                    nome: "PE",
+                    pasta: "PE",
+                    imagens: ["PE.jpg", "PE1.jpg", "PE2.jpg", "PE3.jpg", "PE4.jpg", "PE5.jpg", "PE6.jpg", "PE7.jpg", "PE8.jpg", "PE9.jpg", "PE10.jpg", "PE11.jpg"]
+                },
+                {
+                    nome: "PH",
+                    pasta: "PH",
+                    imagens: ["PH.jpg", "PH1.jpg", "PH2.jpg", "PH3.jpg", "PH4.jpg", "PH5.jpg"]
+                },
+                {
+                    nome: "PM",
+                    pasta: "PM",
+                    imagens: ["PM.jpg", "PM1.jpg", "PM2.jpg", "PM3.jpg", "PM4.jpg", "PM5.jpg", "PM6.jpg", "PM7.jpg"]
+                },
+                {
+                    nome: "PV",
+                    pasta: "PV",
+                    imagens: ["PV.jpg", "PV1.jpg", "PV2.jpg", "PV3.jpg", "PV4.jpg", "PV5.jpg", "PV6.jpg", "PV7.jpg", "PV8.jpg", "PV9.jpg", "PV10.jpg"]
+                },
+            ]
+        },
+ {
+            nome: "S SOMBRA",
+            pasta: "S_SOMBRA",
+            subcategorias: [
+                {
+                    nome: "SE",
+                    pasta: "SE",
+                    imagens: ["SE.jpg", "SE1.jpg"]
+                },
+                {
+                    nome: "SH",
+                    pasta: "SH",
+                    imagens: ["SH.jpg", "SH1.jpg", "SH2.jpg", "SH3.jpg", "SH4.jpg", "SH5.jpg", "SH6.jpg", "SH7.jpg", "SH8.jpg", "SH9.jpg", "SH10.jpg", "SH11.jpg"]
+                },
+                {
+                    nome: "SP",
+                    pasta: "SP",
+                    imagens: ["SP.jpg", "SP1.jpg", "SP2.jpg", "SP3.jpg", "SP4.jpg"]
+                },
+            ]
+        },
+    ];
+function gerarCategorias(data) {
+        const categoriasContainer = document.getElementById('categorias-container');
+        data.forEach(categoria => {
+            // Cria o slide da categoria
+            const categoriaSlide = document.createElement('div');
+            categoriaSlide.className = 'swiper-slide';
+
+            // Adiciona o título da categoria
+            const tituloCategoria = document.createElement('h2');
+            tituloCategoria.textContent = categoria.nome;
+            categoriaSlide.appendChild(tituloCategoria);
+
+            // Verifica se a categoria tem subcategorias
+            if (categoria.subcategorias) {
+                // Swiper Horizontal para subcategorias
+                const subcategoriaSwiperContainer = document.createElement('div');
+                subcategoriaSwiperContainer.className = 'swiper-container swiper-container-h';
+                const subcategoriaWrapper = document.createElement('div');
+                subcategoriaWrapper.className = 'swiper-wrapper';
+
+                categoria.subcategorias.forEach(subcategoria => {
+                    // Cria o slide da subcategoria
+                    const subcategoriaSlide = document.createElement('div');
+                    subcategoriaSlide.className = 'swiper-slide';
+
+
+
+// Embaralha as imagens da subcategoria
+const imagensEmbaralhadas = subcategoria.imagens.slice();
+embaralharArray(imagensEmbaralhadas);
+
+
+// Gera os slides dos produtos
+imagensEmbaralhadas.forEach(imagem => {
+
+});
+
+                    // Swiper Horizontal para produtos da subcategoria
+                    const produtoSwiperContainer = document.createElement('div');
+                    produtoSwiperContainer.className = 'swiper-container swiper-container-h2';
+
+                    // IDs seguros para evitar problemas com caracteres especiais
+                    const safeCategoriaNome = categoria.nome.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
+                    const safeSubcategoriaNome = subcategoria.nome.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
+                    const swiperId = `swiper-produtos-${safeCategoriaNome}-${safeSubcategoriaNome}`;
+                    produtoSwiperContainer.id = swiperId;
+
+                    // Cria o wrapper dos slides dos produtos
+                    const produtoWrapper = document.createElement('div');
+                    produtoWrapper.className = 'swiper-wrapper';
+
+                    // Gera os slides dos produtos
+                    imagensEmbaralhadas.forEach(imagem => {
+                        const produtoSlide = document.createElement('div');
+                        produtoSlide.className = 'swiper-slide';
+
+                        // Contêiner para a imagem e a descrição
+                        const produtoContainer = document.createElement('div');
+                        produtoContainer.className = 'produto-container';
+
+                        // Imagem do produto
+                        const img = document.createElement('img');
+                        img.src = `${categoria.pasta}/${subcategoria.pasta}/${imagem}`;
+                        img.alt = imagem;
+
+                        // Adiciona a imagem ao contêiner
+                        produtoContainer.appendChild(img);
+
+                        // Adiciona o contêiner ao slide do produto
+                        produtoSlide.appendChild(produtoContainer);
+
+                        produtoWrapper.appendChild(produtoSlide);
+                    });
+
+                    // Adiciona o wrapper ao contêiner do Swiper de produtos
+                    produtoSwiperContainer.appendChild(produtoWrapper);
+
+                    // Adiciona o Swiper de produtos ao slide da subcategoria
+                    subcategoriaSlide.appendChild(produtoSwiperContainer);
+
+                    // Adiciona o slide da subcategoria ao wrapper das subcategorias
+                    subcategoriaWrapper.appendChild(subcategoriaSlide);
+                });
+
+                // Adiciona o wrapper das subcategorias ao contêiner do Swiper
+                subcategoriaSwiperContainer.appendChild(subcategoriaWrapper);
+
+                // Adiciona o contêiner do Swiper ao slide da categoria
+                categoriaSlide.appendChild(subcategoriaSwiperContainer);
+            }
+
+            // Adiciona o slide da categoria ao contêiner principal
+            categoriasContainer.appendChild(categoriaSlide);
+        });
+    }
+
+    function inicializarSwipers() {
+        // Swiper Vertical (Categorias)
+        new Swiper('.swiper-container-v', {
+            direction: 'vertical',
+            slidesPerView: 1,
+            loop: true, // Adicionado para permitir loop nas categorias
+            mousewheel: true,
+        });
+
+        // Swiper Horizontal (Subcategorias)
+        document.querySelectorAll('.swiper-container-h').forEach(function (container) {
+            new Swiper(container, {
+                direction: 'horizontal',
+                slidesPerView: 1,
+                loop: true, // Adicionado para permitir loop nas subcategorias
+                spaceBetween: 10,
+            });
+        });
+
+        // Swiper Horizontal (Produtos das Subcategorias)
+        document.querySelectorAll('.swiper-container-h2').forEach(function (container) {
+            new Swiper(container, {
+                direction: 'horizontal',
+                slidesPerView: 1,
+                loop: true, // Adicionado para permitir loop nas imagens dos produtos
+                spaceBetween: 10,
+            });
+        });
+    }
+
+    // Gera as categorias e inicializa os Swipers
+    gerarCategorias(data);
+    window.addEventListener('load', inicializarSwipers);
+</script>
+
+<!-- Incluindo o Swiper JS localmente -->
+<script src="./swiper/swiper-bundle.min.js"></script>
+
+<!-- Seu script personalizado -->
+<script src="./js/script.js"></script>
+
+
+
+</body>
+</html>
