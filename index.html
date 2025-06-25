@@ -73,11 +73,13 @@
             align-items: center;
             background: #000; /* Ajuste a cor de fundo conforme necessário */
         }
-        .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+.swiper-slide img{
+  width:100%;        /* passa a largura calculada para a imagem   */
+  height:auto;
+  max-height:100%;
+  object-fit:contain;
+}
+
 h2 {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -93,6 +95,18 @@ h2 {
     left: 20px;
     top: auto; /* Adicionado */
     font-weight: bold;
+}
+
+/* cada categoria (vertical) continua fullscreen  */
+.swiper-container-v .swiper-slide{
+  width:100%;
+  height:100%;
+}
+
+/* horizontais – sem largura fixa  */
+.swiper-container-h .swiper-slide{
+  height:100%;          /* OK manter */
+  /* width: 100%;  <-- remove/ comenta */
 }
 
 
@@ -490,19 +504,20 @@ function inicializarSwipers() {
     mousewheel: true
   });
 
-document.querySelectorAll('.swiper-container-h')
-        .forEach(c => new Swiper(c, {
-          direction: 'horizontal',
-
-          /* mostra 3 slides em simultâneo  */
-          slidesPerView: 3,
-
-          /* cada swipe avança sempre de 3 em 3 (PB-1-2-3 → PE-1-2-3) */
-          slidesPerGroup: 3,
-
-          loop: false,          // mantém a ordem linear
-          spaceBetween: 10
-        }));
+document.querySelectorAll('.swiper-container-h').forEach(c =>
+  new Swiper(c,{
+    direction: 'horizontal',
+    spaceBetween: 10,
+    loop:false,
+    breakpoints:{
+      0   : { slidesPerView:1, slidesPerGroup:1 },
+      480 : { slidesPerView:2, slidesPerGroup:2 },
+      768 : { slidesPerView:3, slidesPerGroup:3 }   // tablets/desktop
+    },
+    preloadImages:false,
+    lazy:true
+  })
+);
 
 }
 
