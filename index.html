@@ -23,6 +23,21 @@
     <meta name="theme-color" content="#2A60A5">
 
     <style>
+/* --- lightbox --------------------------------------*/
+#lightbox{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;                /* esconde por defeito   */
+  align-items:center;          /* centra a imagem       */
+  justify-content:center;
+  z-index:2000;
+}
+#lightbox img{
+  max-width:90vw;
+  max-height:90vh;
+  object-fit:contain;
+}
+
         /* Importando a Fonte Roboto */
         @font-face {
             font-family: 'Roboto';
@@ -143,6 +158,11 @@ h2 {
 <!-- Logo -->
 <img src="logo.png" alt="Logo" id="logo">
 
+  <!-- lightbox -->
+  <div id="lightbox">
+    <img src="" alt="zoom">
+  </div>
+
 <!-- Swiper Vertical (Categorias) -->
 <div class="swiper-container swiper-container-v">
     <div class="swiper-wrapper" id="categorias-container">
@@ -152,18 +172,11 @@ h2 {
 
 <!-- Incluindo o Swiper JS localmente -->
 <script src="swiper/swiper-bundle.min.js"></script>
-
 <script>
-    // Função para embaralhar arrays
-    function embaralharArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
+/* ------------- utilidades ------------------*/
+function embaralharArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
 
-
-    // Defina os dados diretamente no JavaScript
+// Defina os dados diretamente no JavaScript
     const data = [
  {
             nome: "D DECORATIVOS",
@@ -388,142 +401,122 @@ h2 {
             ]
         },
     ];
+
 function gerarCategorias(data) {
-        const categoriasContainer = document.getElementById('categorias-container');
-        data.forEach(categoria => {
-            // Cria o slide da categoria
-            const categoriaSlide = document.createElement('div');
-            categoriaSlide.className = 'swiper-slide';
+  const cont = document.getElementById('categorias-container');
 
-            // Adiciona o título da categoria
-            const tituloCategoria = document.createElement('h2');
-            tituloCategoria.textContent = categoria.nome;
-            categoriaSlide.appendChild(tituloCategoria);
+  data.forEach(cat => {
+    /* slide vertical da categoria */
+    const catSlide = document.createElement('div');
+    catSlide.className = 'swiper-slide';
 
-            // Verifica se a categoria tem subcategorias
-            if (categoria.subcategorias) {
-                // Swiper Horizontal para subcategorias
-                const subcategoriaSwiperContainer = document.createElement('div');
-                subcategoriaSwiperContainer.className = 'swiper-container swiper-container-h';
-                const subcategoriaWrapper = document.createElement('div');
-                subcategoriaWrapper.className = 'swiper-wrapper';
+    const h2 = document.createElement('h2');
+    h2.textContent = cat.nome;
+    catSlide.appendChild(h2);
 
-                categoria.subcategorias.forEach(subcategoria => {
-                    // Cria o slide da subcategoria
-                    const subcategoriaSlide = document.createElement('div');
-                    subcategoriaSlide.className = 'swiper-slide';
+    /* swiper horizontal que conterá TODOS os slides */
+    const subSw  = document.createElement('div');
+    subSw.className = 'swiper-container swiper-container-h';
+    const subWrap = document.createElement('div');
+    subWrap.className = 'swiper-wrapper';
 
+    /* percorre sub-categorias (PB, PE, PH, …) */
+    cat.subcategorias.forEach(sub => {
+      /* baralha e escolhe 3 imagens */
+      const copia = [...sub.imagens];
+      embaralharArray(copia);
+      const imgs = copia.slice(0, 3);
 
+      imgs.forEach((imgNome, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
 
-// Embaralha as imagens da subcategoria
-const imagensEmbaralhadas = subcategoria.imagens.slice();
-embaralharArray(imagensEmbaralhadas);
+        const img = document.createElement('img');
+        img.src = `${cat.pasta}/${sub.pasta}/${imgNome}`;
+        img.alt = imgNome;
+        slide.appendChild(img);
 
+        /* etiqueta “PB”, “PE”, etc. no 1.º slide de cada trio */
+        if (idx === 0) {
+          const tag = document.createElement('span');
+          tag.textContent = sub.nome;
+          Object.assign(tag.style, {
+            position: 'absolute',
+            bottom: '10px',
+            left:   '10px',
+            padding: '2px 6px',
+            color: '#fff',
+            background: 'rgba(0,0,0,.4)',
+            fontSize: '14px'
+          });
+          slide.appendChild(tag);
+        }
 
-// Gera os slides dos produtos
-imagensEmbaralhadas.forEach(imagem => {
+        subWrap.appendChild(slide);   /* todos no MESMO carrossel */
+      });
+    });
 
-});
+    subSw.appendChild(subWrap);
+    catSlide.appendChild(subSw);
+    cont.appendChild(catSlide);
+  });
+}
 
-                    // Swiper Horizontal para produtos da subcategoria
-                    const produtoSwiperContainer = document.createElement('div');
-                    produtoSwiperContainer.className = 'swiper-container swiper-container-h2';
+/* ---------- zoom ao clicar --------------------------*/
+(function activarZoom(){
+  const lb   = document.getElementById('lightbox');
+  const lbImg= lb.querySelector('img');
 
-                    // IDs seguros para evitar problemas com caracteres especiais
-                    const safeCategoriaNome = categoria.nome.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
-                    const safeSubcategoriaNome = subcategoria.nome.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
-                    const swiperId = `swiper-produtos-${safeCategoriaNome}-${safeSubcategoriaNome}`;
-                    produtoSwiperContainer.id = swiperId;
-
-                    // Cria o wrapper dos slides dos produtos
-                    const produtoWrapper = document.createElement('div');
-                    produtoWrapper.className = 'swiper-wrapper';
-
-                    // Gera os slides dos produtos
-                    imagensEmbaralhadas.forEach(imagem => {
-                        const produtoSlide = document.createElement('div');
-                        produtoSlide.className = 'swiper-slide';
-
-                        // Contêiner para a imagem e a descrição
-                        const produtoContainer = document.createElement('div');
-                        produtoContainer.className = 'produto-container';
-
-                        // Imagem do produto
-                        const img = document.createElement('img');
-                        img.src = `${categoria.pasta}/${subcategoria.pasta}/${imagem}`;
-                        img.alt = imagem;
-
-                        // Adiciona a imagem ao contêiner
-                        produtoContainer.appendChild(img);
-
-                        // Adiciona o contêiner ao slide do produto
-                        produtoSlide.appendChild(produtoContainer);
-
-                        produtoWrapper.appendChild(produtoSlide);
-                    });
-
-                    // Adiciona o wrapper ao contêiner do Swiper de produtos
-                    produtoSwiperContainer.appendChild(produtoWrapper);
-
-                    // Adiciona o Swiper de produtos ao slide da subcategoria
-                    subcategoriaSlide.appendChild(produtoSwiperContainer);
-
-                    // Adiciona o slide da subcategoria ao wrapper das subcategorias
-                    subcategoriaWrapper.appendChild(subcategoriaSlide);
-                });
-
-                // Adiciona o wrapper das subcategorias ao contêiner do Swiper
-                subcategoriaSwiperContainer.appendChild(subcategoriaWrapper);
-
-                // Adiciona o contêiner do Swiper ao slide da categoria
-                categoriaSlide.appendChild(subcategoriaSwiperContainer);
-            }
-
-            // Adiciona o slide da categoria ao contêiner principal
-            categoriasContainer.appendChild(categoriaSlide);
-        });
+  /* abre */
+  document.addEventListener('click', e=>{
+    const alvo = e.target;
+    if (alvo.tagName === 'IMG' && alvo.closest('.swiper-container-h')) {
+      lbImg.src = alvo.src;     // usa a mesma foto
+      lb.style.display = 'flex';
     }
+  });
 
-    function inicializarSwipers() {
-        // Swiper Vertical (Categorias)
-        new Swiper('.swiper-container-v', {
-            direction: 'vertical',
-            slidesPerView: 1,
-            loop: true, // Adicionado para permitir loop nas categorias
-            mousewheel: true,
-        });
+  /* fecha com outro clique em qualquer zona escura */
+  lb.addEventListener('click', ()=>lb.style.display='none');
+})();
 
-        // Swiper Horizontal (Subcategorias)
-        document.querySelectorAll('.swiper-container-h').forEach(function (container) {
-            new Swiper(container, {
-                direction: 'horizontal',
-                slidesPerView: 1,
-                loop: true, // Adicionado para permitir loop nas subcategorias
-                spaceBetween: 10,
-            });
-        });
 
-        // Swiper Horizontal (Produtos das Subcategorias)
-        document.querySelectorAll('.swiper-container-h2').forEach(function (container) {
-            new Swiper(container, {
-                direction: 'horizontal',
-                slidesPerView: 1,
-                loop: true, // Adicionado para permitir loop nas imagens dos produtos
-                spaceBetween: 10,
-            });
-        });
-    }
+/* ------------- inicia Swipers --------------*/
+function inicializarSwipers() {
+  new Swiper('.swiper-container-v', {
+    direction: 'vertical',
+    slidesPerView: 1,
+    loop: true,
+    mousewheel: true
+  });
 
-    // Gera as categorias e inicializa os Swipers
-    gerarCategorias(data);
-    window.addEventListener('load', inicializarSwipers);
+document.querySelectorAll('.swiper-container-h')
+        .forEach(c => new Swiper(c, {
+          direction: 'horizontal',
+
+          /* mostra 3 slides em simultâneo  */
+          slidesPerView: 3,
+
+          /* cada swipe avança sempre de 3 em 3 (PB-1-2-3 → PE-1-2-3) */
+          slidesPerGroup: 3,
+
+          loop: false,          // mantém a ordem linear
+          spaceBetween: 10
+        }));
+
+}
+
+
+/* ------------- run -------------------------*/
+gerarCategorias(data);
+window.addEventListener('load',inicializarSwipers);
 </script>
 
 <!-- Incluindo o Swiper JS localmente -->
 <script src="./swiper/swiper-bundle.min.js"></script>
 
-<!-- Seu script personalizado -->
-<script src="./js/script.js"></script>
+
+
 
 
 
